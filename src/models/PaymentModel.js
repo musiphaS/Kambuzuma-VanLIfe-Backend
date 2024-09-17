@@ -29,3 +29,4 @@ const PaymentModel = new mongoose.Schema({
     });
 
 export default PaymentModel.model("payments" , PaymentModel)
+
