@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const vanSchema = new mongoose.Schema({
     name: {
@@ -23,4 +23,4 @@ const vanSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.model("vans", vanSchema)
+module.exports = mongoose.model('vans', vanSchema);
