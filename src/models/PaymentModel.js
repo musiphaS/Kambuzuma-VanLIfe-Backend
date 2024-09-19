@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
 
-const PaymentModel = new mongoose.Schema({
+
+import mongoose from "mongoose";
+
+const PaymentSchema  = new mongoose.Schema({
  
 
     booking: {
@@ -29,5 +31,7 @@ const PaymentModel = new mongoose.Schema({
     });
 
 
+module.exports = mongoose.model('payments',PaymentSchema );
 
-module.exports = mongoose.model("payments" , PaymentModel);
+
+
