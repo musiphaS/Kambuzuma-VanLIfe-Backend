@@ -1,37 +1,46 @@
 
+// models/PaymentModel.js
+const mongoose = require('mongoose');
 
-import mongoose from "mongoose";
+const paymentSchema = new mongoose.Schema({
+  paymentId: { 
+    type: String, 
+    unique: true, 
+    required: true 
+  },
+  amount: { 
+    type: Number, 
+    required: true 
+  },
+  paymentMethod: { 
+    type: String, 
+    enum: ['credit card', 'paypal', 'bank transfer'], 
+    required: true 
+  },
+  currency: { 
+    type: String, 
+    enum: ['USD', 'EUR', 'GBP'], 
+    required: true 
+  },
+  status: { 
+    type: String, 
+    enum: ['pending', 'successful', 'failed'], 
+    default: 'pending' 
+  },
+  paymentDate: { 
+    type: Date, 
+    default: Date.now 
+  },
+  userId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  }
+}, 
+{ 
+  timestamps: true 
+});
 
-const PaymentSchema  = new mongoose.Schema({
- 
+const Payment = mongoose.model('Payment', paymentSchema);
 
-    booking: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'bookings',
-        required: true
-      },
-      amount: {
-        type: Number,
-        required: true
-      },
-      paymentMethod: {
-        type: String,
-        enum: ['card', 'bank transfer'],
-        required: true
-      },
-      paymentDate: {
-        type: Date,
-        required: true
-      },
-      status: {
-        type: String,
-        enum: ['paid', 'pending', 'failed'],
-        default: 'paid'
-      }
-    });
-
-
-module.exports = mongoose.model('payments',PaymentSchema );
-
-
-
+module.exports = Payment;
