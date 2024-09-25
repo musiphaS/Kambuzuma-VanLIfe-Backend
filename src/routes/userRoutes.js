@@ -1,28 +1,75 @@
 const express = require('express');
 const router = express.Router();
+const userService = require('../services/userServices');
 
-router.get('/', (req, res) => {
-  res.send('User list');
+// GET all users
+router.get('/', async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching all users', error: error.message });
+  }
 });
 
-router.post('/create', (req, res) => {
-  // Create user logic
-  res.send('User created');
+// POST new user
+router.post('/', async (req, res) => {
+  try {
+    const userData = req.body;
+    const newUser = await userService.createUser(userData);
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating new user', error: error.message });
+  }
 });
 
-router.get('/:id', (req, res) => {
-  // Get user by ID logic
-  res.send(`User ${req.params.id}`);
+// GET user by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userService.getUserById(userId);
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user', error: error.message });
+  }
 });
 
-router.put('/:id', (req, res) => {
-  // Update user logic
-  res.send(`User ${req.params.id} updated`);
+// PUT: update user details
+router.put('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const update = req.body;
+    const updatedUser = await userService.updateUser(userId, update);
+    
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating user', error: error.message });
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // Delete user logic
-  res.send(`User ${req.params.id} deleted`);
+// DELETE: delete user
+router.delete('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const result = await userService.deleteUser(userId);
+    
+    if (result) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting user', error: error.message });
+  }
 });
 
 module.exports = router;
