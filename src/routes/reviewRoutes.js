@@ -1,28 +1,29 @@
 const express = require('express');
 const router = express.Router();
+const reviewService = require('../services/reviewServices');  // Adjust the path as needed
 
-router.get('/', (req, res) => {
-  res.send('User list');
+// POST route to create a new review
+router.post('/', async (req, res) => {
+  try {
+    const reviewData = req.body;
+    const newReview = await reviewService.createReview(reviewData);
+    res.status(201).json(newReview);
+  } catch (error) {
+    console.error('Error creating review:', error);
+    res.status(500).json({ message: 'Error creating review', error: error.message });
+  }
 });
 
-router.post('/create', (req, res) => {
-  // Create user logic
-  res.send('User created');
-});
-
-router.get('/:id', (req, res) => {
-  // Get user by ID logic
-  res.send(`User ${req.params.id}`);
-});
-
-router.put('/:id', (req, res) => {
-  // Update user logic
-  res.send(`User ${req.params.id} updated`);
-});
-
-router.delete('/:id', (req, res) => {
-  // Delete user logic
-  res.send(`User ${req.params.id} deleted`);
+// GET route to retrieve reviews for a specific van
+router.get('/:vanId', async (req, res) => {
+  try {
+    const vanId = req.params.vanId;
+    const reviews = await reviewService.getReviewsForHost(vanId);
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error('Error retrieving reviews:', error);
+    res.status(500).json({ message: 'Error retrieving reviews', error: error.message });
+  }
 });
 
 module.exports = router;
