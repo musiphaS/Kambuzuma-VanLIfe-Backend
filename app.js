@@ -1,3 +1,5 @@
+
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -7,6 +9,7 @@ const bookingRoutes = require('./src/routes/bookingRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
+const { ConvexHttpClient } = require('convex/browser');
 
 dotenv.config();
 const app = express();
@@ -28,7 +31,7 @@ app.use('/reviews', reviewRoutes);
 
 
 
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // Error handling middleware
 app.use(errorMiddleware);
