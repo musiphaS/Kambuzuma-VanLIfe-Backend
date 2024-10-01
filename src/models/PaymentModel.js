@@ -32,15 +32,18 @@ const paymentSchema = new mongoose.Schema({
     default: Date.now 
   },
   userId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+    type: String, 
     required: true 
-  }
+  } 
+     
+  
+ 
+  
 }, 
 { 
   timestamps: true 
 });
 
-const Payment = mongoose.model('Payment', paymentSchema);
+module.exports = mongoose.model('Payment', paymentSchema);
 
-module.exports = Payment;
+// module.exports = Payment;
