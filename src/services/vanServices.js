@@ -1,6 +1,6 @@
 
 // services/vanService.js
-const Van = require('../models/VanModel');
+const Van = require('../models/VanModels');
 
 const createVan = async (vanData) => {
   const van = new Van(vanData);

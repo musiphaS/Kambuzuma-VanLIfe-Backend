@@ -1,5 +1,16 @@
 // services/userService.js
-const User = require('../models/User');
+const User = require('../models/UserModel');
+
+
+const getAllUsers = async () => {
+  try {
+    const users = await User.find({});
+    return users;
+  } catch (error) {
+    console.error('Error fetching all users:', error);
+    throw error;
+  }
+};
 
 const createUser = async (userData) => {
   try {
@@ -56,6 +67,7 @@ const deleteUser = async (userId) => {
 };
 
 module.exports = {
+  getAllUsers,
   createUser,
   updateUser,
   getUserById,
