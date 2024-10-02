@@ -23,4 +23,6 @@ const vanSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('vans', vanSchema);
+const van = mongoose.model('vans', vanSchema);
+
+module.exports = van;

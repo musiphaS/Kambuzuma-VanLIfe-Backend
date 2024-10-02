@@ -8,6 +8,15 @@ const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
 
+const User = require('./src/models/UserModel');
+const Booking = require('./src/models/BookingModel');
+const Van = require('./src/models/VanModels');
+
+mongoose.model('User', User.schema);
+mongoose.model('Booking', Booking.schema);
+mongoose.model('Van', Van.schema);
+
+
 dotenv.config();
 const app = express();
 // gb jb jasfbjgrbjrws
@@ -22,7 +31,7 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,
 // Define routes
 app.use('/users', userRoutes);
 app.use('/vans', vanRoutes);
-app.use('/bookings', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/payments', paymentRoutes);
 app.use('/reviews', reviewRoutes);
 
