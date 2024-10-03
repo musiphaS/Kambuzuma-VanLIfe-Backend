@@ -7,7 +7,7 @@ const fs = require('fs');
 
 // POST create a new van with image upload
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.single("image"), async (req, res) => {
   try {
     console.log('Received request body:', req.body);
     console.log('Received file:', req.file);
