@@ -9,9 +9,15 @@ const app = express();
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Allow-Control-Allow-Methods',' POST, GET, PUT, DELETE, PATCH')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
   next();
+});
+
+app.options('/users', (req, res) => {
+  res.header('Access-Control-Allow-Methods', 'POST, GET');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  res.send();
 });
 
 
