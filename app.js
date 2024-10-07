@@ -29,7 +29,7 @@ app.use(cors({ origin: '*' }));
 const corsOptions = {
   origin: ['http://kambuzuma-vanlife-backend-production.up.railway.app'], // Allow requests from this domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization' ],
 };
 
 // app.use(cors(corsOptions));
