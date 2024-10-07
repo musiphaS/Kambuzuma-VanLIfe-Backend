@@ -21,7 +21,6 @@ mongoose.model('Van', Van.schema);
 
 dotenv.config();
 const app = express();
-const cors = require('cors');
 
 
 app.use(cors({ origin: '*' }));
@@ -33,14 +32,14 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 
-const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your frontend URL
-  optionsSuccessStatus: 200
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000', // Replace with your frontend URL
+//   optionsSuccessStatus: 200
+// };
 
 app.use(cors(corsOptions));
 
@@ -60,7 +59,7 @@ app.use('/users', userRoutes);
 app.use('/vans', vanRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/payments', paymentRoutes);
-app.use('/api/reviews', reviewRoutes);
+app.use('/reviews', reviewRoutes);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
