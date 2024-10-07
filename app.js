@@ -7,11 +7,22 @@ const bookingRoutes = require('./src/routes/bookingRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
+const cors = require('cors');
 
 dotenv.config();
 const app = express();
 // gb jb jasfbjgrbjrws
 
+
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with your frontend URL
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+// Rest of your backend setup...
 // Database connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,
   useUnifiedTopology: true })
@@ -24,7 +35,7 @@ app.use('/users', userRoutes);
 app.use('/vans', vanRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/payments', paymentRoutes);
-app.use('/reviews', reviewRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 
 
