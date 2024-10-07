@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const userService = require('../services/userServices');
 
+
+// to allow our frontend app to make requests to the Api although they are on different domains
+
+const app = express();
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Allow-Control-Allow-Methods',' POST, GET, PUT, DELETE, PATCH')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+
 // GET all users
 router.get('/', async (req, res) => {
   try {
