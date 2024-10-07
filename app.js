@@ -8,6 +8,7 @@ const bookingRoutes = require('./src/routes/bookingRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
+const cors = require('cors');
 
 const User = require('./src/models/UserModel');
 const Booking = require('./src/models/BookingModel');
@@ -34,6 +35,16 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // Replace with your frontend URL
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+// Rest of your backend setup...
 // Database connection
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('MongoDB connected successfully'))
@@ -49,7 +60,7 @@ app.use('/users', userRoutes);
 app.use('/vans', vanRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/payments', paymentRoutes);
-app.use('/reviews', reviewRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
