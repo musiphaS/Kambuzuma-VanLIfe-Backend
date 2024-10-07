@@ -10,15 +10,24 @@ const reviewRoutes = require('./src/routes/reviewRoutes');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
 const cors = require('cors');
 
+const User = require('./src/models/UserModel');
+const Booking = require('./src/models/BookingModel');
+const Van = require('./src/models/VanModels');
+
+mongoose.model('User', User.schema);
+mongoose.model('Booking', Booking.schema);
+mongoose.model('Van', Van.schema);
+
+
 dotenv.config();
 const app = express();
 
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // or with specific options
 const corsOptions = {
-  origin: ['http://localhost:3000'], // Allow requests from this domain
+  origin: ['http://kambuzuma-vanlife-backend-production.up.railway.app'], // Allow requests from this domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -48,7 +57,7 @@ app.use(express.json());
 // Define routes
 app.use('/users', userRoutes);
 app.use('/vans', vanRoutes);
-app.use('/bookings', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/payments', paymentRoutes);
 app.use('/reviews', reviewRoutes);
 
