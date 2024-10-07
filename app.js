@@ -27,7 +27,7 @@ app.use(cors());
 
 // or with specific options
 const corsOptions = {
-  origin: ['http://localhost:3000'], // Allow requests from this domain
+  origin: ['http://kambuzuma-vanlife-backend-production.up.railway.app'], // Allow requests from this domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
