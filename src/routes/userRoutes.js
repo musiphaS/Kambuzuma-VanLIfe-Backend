@@ -69,8 +69,8 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   console.log('Received login request with data:', JSON.stringify(req.body, null, 2));
   try {
-    const {email, password } = req.body;
-    if ( !email || !password) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       console.log('Validation failed: Missing email or password');
       return res.status(400).json({ message: 'Email and password are required' });
     }
@@ -83,6 +83,9 @@ router.post('/login', async (req, res) => {
     console.error('Error in user login:', error);
     if (error.message === 'Invalid credentials') {
       return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    if (error.name === 'MongoError') {
+      return res.status(500).json({ message: 'Database error', error: error.message });
     }
     res.status(500).json({ message: 'Error logging in', error: error.message });
   }
