@@ -23,23 +23,26 @@ dotenv.config();
 const app = express();
 
 
-app.use(cors({ origin: '*' }));
-
-// or with specific options
+// CORS configuration
 const corsOptions = {
-  origin: ['http://kambuzuma-vanlife-backend-production.up.railway.app'], // Allow requests from this domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization' ],
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://kambuzuma-vanlife-backend-production.up.railway.app', // this is our backend URL
+      'http://localhost:3001',  // Local development for front end
+      'https://kambuzuma-vanlife.netlify.app',  // Your production frontend URL
+      
+    ];
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
 };
-
-// app.use(cors(corsOptions));
-
-
-
-// const corsOptions = {
-//   origin: 'http://localhost:3000', // Replace with your frontend URL
-//   optionsSuccessStatus: 200
-// };
 
 app.use(cors(corsOptions));
 
