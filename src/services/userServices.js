@@ -66,10 +66,34 @@ const deleteUser = async (userId) => {
   }
 };
 
+const loginUser = async (email, password) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error('Invalid credentials');
+    }
+    
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      throw new Error('Invalid credentials');
+    }
+    
+    // Don't send the password back to the client
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+    
+    return userWithoutPassword;
+  } catch (error) {
+    console.error('Error logging in user:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   getAllUsers,
   createUser,
   updateUser,
   getUserById,
-  deleteUser
+  deleteUser,
+  loginUser 
 };

@@ -65,6 +65,32 @@ router.post('/', async (req, res) => {
   }
 });
 
+// POST: user login
+router.post('/login', async (req, res) => {
+  console.log('Received login request with data:', JSON.stringify(req.body, null, 2));
+  try {
+    const {email, password } = req.body;
+    if ( !email || !password) {
+      console.log('Validation failed: Missing email or password');
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+    
+    console.log('Attempting to login user with service');
+    const user = await userService.loginUser(email, password);
+    console.log('User logged in successfully:', JSON.stringify(user, null, 2));
+    res.status(200).json({ message: 'Login successful', user });
+  } catch (error) {
+    console.error('Error in user login:', error);
+    if (error.message === 'Invalid credentials') {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    res.status(500).json({ message: 'Error logging in', error: error.message });
+  }
+});
+
+
+
+
 // GET user by ID
 router.get('/:id', async (req, res) => {
   try {
