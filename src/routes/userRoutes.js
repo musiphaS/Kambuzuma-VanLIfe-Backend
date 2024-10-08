@@ -32,12 +32,35 @@ router.get('/', async (req, res) => {
 });
 
 // POST new user
+
 router.post('/', async (req, res) => {
+  console.log('Received signup request with data:', JSON.stringify(req.body, null, 2));
+  
   try {
     const userData = req.body;
+    
+    // Basic validation
+    if (!userData.name || !userData.username || !userData.email || !userData.password) {
+      console.log('Validation failed: Missing required fields');
+      return res.status(400).json({ message: 'All fields (name, username, email, password) are required' });
+    }
+    
+    console.log('Attempting to create user with service');
     const newUser = await userService.createUser(userData);
+    
+    console.log('User created successfully:', JSON.stringify(newUser, null, 2));
     res.status(201).json(newUser);
   } catch (error) {
+    console.error('Error in user creation:', error);
+    
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: 'Validation Error', details: error.message });
+    }
+    
+    if (error.code === 11000) {
+      return res.status(409).json({ message: 'User with this email or username already exists' });
+    }
+    
     res.status(500).json({ message: 'Error creating new user', error: error.message });
   }
 });
