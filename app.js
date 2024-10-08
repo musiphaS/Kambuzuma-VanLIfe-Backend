@@ -27,7 +27,7 @@ const app = express();
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
-      'http://kambuzuma-vanlife-backend-production.up.railway.app', // this is our backend URL
+      'https://kambuzuma-vanlife-backend-production.up.railway.app', // this is our backend URL
       'http://localhost:3001',  // Local development for front end
       'https://kambuzuma-vanlife.netlify.app',  // Your production frontend URL
       
@@ -41,7 +41,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
