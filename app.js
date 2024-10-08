@@ -46,6 +46,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.options('*', cors(corsOptions));
 // Rest of your backend setup...
 // Database connection
 mongoose.connect(process.env.MONGO_URL)
