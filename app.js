@@ -16,7 +16,7 @@ const Van = require('./src/models/VanModels');
 
 mongoose.model('User', User.schema);
 mongoose.model('Booking', Booking.schema);
-mongoose.model('Van', Van.schema);
+mongoose.model('Van', Van.schema)
 
 
 dotenv.config();

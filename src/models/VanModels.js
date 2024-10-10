@@ -17,6 +17,8 @@ const vanSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
+    type : {
     button: {
         type: String,
         required: true,
@@ -25,6 +27,8 @@ const vanSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    },
+
     image: {
         type: String,
         required: true,
