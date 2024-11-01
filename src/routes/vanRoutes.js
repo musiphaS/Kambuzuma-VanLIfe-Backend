@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const vanService = require('../services/vanServices'); // Correct import for service
-const upload = require('../multerConfig'); // Multer config for image uploads
+const upload = require('../multerConfig');
+ // Multer config for image uploads
 
 const fs = require('fs');
 
